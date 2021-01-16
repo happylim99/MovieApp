@@ -1,6 +1,9 @@
 package com.sean.movieapp;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +15,7 @@ import com.sean.movieapp.requests.Services;
 import com.sean.movieapp.responses.MovieSearchResponse;
 import com.sean.movieapp.utils.Credentials;
 import com.sean.movieapp.utils.MovieApi;
+import com.sean.movieapp.viewmodels.MovieListViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +30,16 @@ public class MovieListActivity extends AppCompatActivity {
 
     Button btn;
 
+    // ViewModel
+    private MovieListViewModel movieListViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btn = findViewById(R.id.button);
+
+        movieListViewModel = new ViewModelProvider(this).get(MovieListViewModel.class);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,7 +47,21 @@ public class MovieListActivity extends AppCompatActivity {
                 GetRetrofitResponseById();
             }
         });
+    }
 
+    // Observing any data changes
+    private void ObserveAnyChange() {
+        movieListViewModel.getMovies().observe(this, new Observer<List<MovieModel>>() {
+            @Override
+            public void onChanged(@Nullable List<MovieModel> movieModels) {
+                Log.i(TAG, "onChanged: jajajaja");
+                if(movieModels != null) {
+                    for(MovieModel movieModel : movieModels) {
+                        Log.i(TAG, "onChanged: " + movieModel.getTitle());
+                    }
+                }
+            }
+        });
     }
 
     private void GetRetrofitResponse() {
