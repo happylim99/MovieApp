@@ -41,10 +41,12 @@ public class MovieListActivity extends AppCompatActivity {
 
         movieListViewModel = new ViewModelProvider(this).get(MovieListViewModel.class);
 
+        ObserveAnyChange();
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GetRetrofitResponseById();
+                searchMovieApi("fast", 1);
             }
         });
     }
@@ -62,6 +64,11 @@ public class MovieListActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    // 4- Calling method in Main activity
+    private void searchMovieApi(String query, int pageNumber) {
+        movieListViewModel.searchMovieApi(query, pageNumber);
     }
 
     private void GetRetrofitResponse() {
