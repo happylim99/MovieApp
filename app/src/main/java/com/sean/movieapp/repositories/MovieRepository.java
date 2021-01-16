@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.sean.movieapp.models.MovieModel;
+import com.sean.movieapp.requests.MovieApiClient;
 
 import java.util.List;
 
@@ -12,10 +13,13 @@ public class MovieRepository {
     private static MovieRepository instance;
 
     // Live data
-    private MutableLiveData<List<MovieModel>> movies;
+    // move to movieApiClient again
+//    private MutableLiveData<List<MovieModel>> movies;
+
+    private MovieApiClient movieApiClient;
 
     private MovieRepository() {
-       movies = new MutableLiveData<>();
+        movieApiClient = MovieApiClient.getInstance();
     }
 
     public static MovieRepository getInstance() {
@@ -26,6 +30,6 @@ public class MovieRepository {
     }
 
     public LiveData<List<MovieModel>> getMovies() {
-        return movies;
+        return movieApiClient.getMovies();
     }
 }
