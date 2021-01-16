@@ -105,6 +105,19 @@ public class MovieModel implements Parcelable {
     }
 
     @Override
+    public String toString() {
+        return "MovieModel{" +
+                "title='" + title + '\'' +
+                ", poster_path='" + poster_path + '\'' +
+                ", release_date='" + release_date + '\'' +
+                ", id=" + id +
+                ", vote_average=" + vote_average +
+                ", movie_overview='" + movie_overview + '\'' +
+                ", runtime=" + runtime +
+                '}';
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }
