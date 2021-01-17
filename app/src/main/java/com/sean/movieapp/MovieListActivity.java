@@ -49,6 +49,9 @@ public class MovieListActivity extends AppCompatActivity {
                 searchMovieApi("fast", 1);
             }
         });
+
+
+
     }
 
     // Observing any data changes
