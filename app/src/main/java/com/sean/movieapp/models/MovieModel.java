@@ -3,6 +3,8 @@ package com.sean.movieapp.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.sean.movieapp.utils.Credentials;
+
 public class MovieModel implements Parcelable {
 
     private String title;
@@ -57,7 +59,7 @@ public class MovieModel implements Parcelable {
     }
 
     public String getPoster_path() {
-        return poster_path;
+        return Credentials.IMAGE_URL.concat(poster_path);
     }
 
     public void setPoster_path(String poster_path) {

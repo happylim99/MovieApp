@@ -1,5 +1,6 @@
 package com.sean.movieapp.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,12 @@ import com.sean.movieapp.R;
 
 public class MovieRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private static final String TAG = "MovieRecyclerView";
     private List<MovieModel> movies;
     private OnMovieListener onMovieListener;
+
+    public MovieRecyclerView() {
+    }
 
     public MovieRecyclerView(OnMovieListener onMovieListener) {
         this.onMovieListener = onMovieListener;
@@ -35,7 +40,7 @@ public class MovieRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int i) {
         ((MovieViewHolder)holder).title.setText(movies.get(i).getTitle());
         ((MovieViewHolder)holder).release_date.setText(movies.get(i).getRelease_date());
-        ((MovieViewHolder)holder).runtime.setText(movies.get(i).getRuntime());
+//        ((MovieViewHolder)holder).runtime.setText(movies.get(i).getRuntime());
         ((MovieViewHolder)holder).ratingBar.setRating(movies.get(i).getVote_average()/2);
 
         Glide.with(holder.itemView.getContext())
@@ -52,6 +57,7 @@ public class MovieRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public void setMovies(List<MovieModel> movies) {
+        Log.i(TAG, "setMovies: " + movies.get(0).getTitle());
         this.movies = movies;
         notifyDataSetChanged();
     }
